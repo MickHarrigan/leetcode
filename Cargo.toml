@@ -10,8 +10,8 @@ edition = "2021"
 
 [[bin]]
 name = "33"
-path = "src/33/main.rs"
+path = "src/33/src/main.rs"
 
 [[bin]]
 name = "81"
-path = "src/81/main.rs"
+path = "src/81/src/main.rs"
