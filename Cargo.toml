@@ -19,3 +19,16 @@ path = "src/33/src/main.rs"
 [[bin]]
 name = "81"
 path = "src/81/src/main.rs"
+
+[[bin]]
+name = "1"
+path = "src/1/src/main.rs"
+
+
+[[bin]]
+name = "2"
+path = "src/2/src/main.rs"
+
+[[bin]]
+name = "3"
+path = "src/3/src/main.rs"
