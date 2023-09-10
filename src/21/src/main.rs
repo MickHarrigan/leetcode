@@ -13,29 +13,6 @@ impl ListNode {
 }
 struct Solution;
 
-// match (l1, l2) {
-//     (Some(left), Some(right)) => {
-//         let sum = left.val + right.val;
-//         if sum > 9 {
-//             let carry = Some(Box::new(ListNode::new(1)));
-//             Some(Box::new(ListNode {
-//                 val: sum - 10,
-//                 next: Solution::add_two_numbers(
-//                     Solution::add_two_numbers(carry, left.next),
-//                     right.next,
-//                 ),
-//             }))
-//         } else {
-//             Some(Box::new(ListNode {
-//                 val: sum,
-//                 next: Solution::add_two_numbers(left.next, right.next),
-//             }))
-//         }
-//     }
-//     (None, Some(x)) | (Some(x), None) => Some(x),
-//     (None, None) => None,
-// }
-
 impl Solution {
     pub fn merge_two_lists(
         list1: Option<Box<ListNode>>,
@@ -43,9 +20,7 @@ impl Solution {
     ) -> Option<Box<ListNode>> {
         match (list1, list2) {
             (Some(mut l), Some(mut r)) => {
-                // put the smaller one first, then recurse
                 if l.val < r.val {
-                    // l.next = min of l.next, r
                     l.next = Solution::merge_two_lists(l.next, Some(r));
                     return Some(l);
                 } else {
