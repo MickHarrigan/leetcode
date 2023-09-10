@@ -4,6 +4,7 @@ This is where I am storing all my leetcode problems that I have solved.
 
 With this is the tests that I have written for each solution as well as a 
 more "rusty" solution that makes the functions that are written more rust-like.
+Though I am trying to make as many of them "rusty" to begin with anyways.
 
 ## Features
 To run and use the "rusty" solutions compile and run with
