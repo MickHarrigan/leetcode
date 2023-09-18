@@ -59,3 +59,15 @@ path = "src/22/src/main.rs"
 [[bin]]
 name = "17"
 path = "src/17/src/main.rs"
+
+[[bin]]
+name = "649"
+path = "src/649/src/main.rs"
+
+[[bin]]
+name = "1456"
+path = "src/1456/src/main.rs"
+
+[[bin]]
+name = "1337"
+path = "src/1337/src/main.rs"
