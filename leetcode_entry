@@ -1,0 +1,139 @@
+#!/bin/bash
+
+# regex for checking input as number
+num_check='^[0-9]+$'
+
+# default values for flags
+prob=""
+func="func"
+name="Problem Number {}"
+args=""
+ret=""
+link=""
+
+usage() {
+    echo "Usage: leetcode_entry [OPTIONS]"
+    echo "Options:"
+    echo " -h    Display this help message"
+    echo " -p    Set the Problem number"
+    echo " -l    Set the Problem Link"
+    echo " -n    Set the Problem name"
+    echo " -f    Set the Function name"
+    echo " -a    Set the Function Arguments"
+    echo " -r    Set the Function Return Value"
+}
+
+has_argument() {
+    [[ ("$1" == *=* && -n ${1#*=}) || ( ! -z "$2" && "$2" != -*)  ]];
+}
+
+handle_flags() {
+    while getopts hp:n:f:a:r:l: flag; do
+        case "${flag}" in
+            h)
+                usage
+                exit 0
+                ;;
+            p)
+                if ! has_argument $@; then
+                    echo "Problem number not given." >&2
+                    usage
+                    exit 1
+                fi
+               
+                prob=${OPTARG}
+                if ! [[ $prob =~ $num_check ]] ; then
+                    echo "Problem number was not a number!" >&2
+                    usage
+                    exit 1
+                fi
+                ;;
+            n)
+                if ! has_argument $@; then
+                    "Problem name not given!" >&2
+                    usage
+                    exit 1
+                fi
+
+                name=${OPTARG}
+                ;;
+            f)
+                if ! has_argument $@; then
+                    "Function name not given!" >&2
+                    usage
+                    exit 1
+                fi
+
+                func=${OPTARG}
+                ;;
+            a)
+                if ! has_argument $@; then
+                    "Function Arguments not given!" >&2
+                    usage
+                    exit 1
+                fi
+
+                args=${OPTARG}
+                ;;
+            r)
+                if ! has_argument $@; then
+                    "Function Return not given!" >&2
+                    usage
+                    exit 1
+                fi
+
+                ret=${OPTARG}
+                ;;
+            l)
+                if ! has_argument $@; then
+                    "Link not given!" >&2
+                    usage
+                    exit 1
+                fi
+                link=${OPTARG}
+                ;;
+            *)
+                echo "Invalid option: $1" >&2
+                usage
+                exit 1
+                ;;
+        esac
+    done
+}
+
+handle_flags "$@"
+
+echo "prob: $prob"
+echo "func: $func"
+echo "name: $name"
+echo "args: $args"
+echo "ret: $ret"
+echo "link: $link"
+
+
+# This adds in the bin to the toml file
+echo -e "\n[[bin]]\nname = \"$prob\"\npath = \"src/$prob/src/main.rs\"" >> Cargo.toml
+
+
+# next make the directory
+mkdir src/$prob
+mkdir src/$prob/src
+cd src/$prob
+
+# then make the readme
+echo -e "# $prob. $name
+
+[Here]($link) is the link to the problem." >> README.md
+
+# last make the main file and the directory to hold it
+cd src
+echo -e "struct Solution;
+
+impl Solution {
+    pub fn $func($args) -> $ret {}
+}
+
+fn main() {
+    let sol = Solution::$func();
+    println!("{:?}", sol);
+}" >> main.rs
