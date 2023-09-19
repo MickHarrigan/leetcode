@@ -135,5 +135,5 @@ impl Solution {
 
 fn main() {
     let sol = Solution::$func();
-    println!("{:?}", sol);
+    println!(\"{:?}\", sol);
 }" >> main.rs
